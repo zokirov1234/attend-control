@@ -80,16 +80,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<?> updateUserById(int id, UserDTO userDTO) {
         try {
-            UserEntity user = userRepository.findUserById(id);
+            Optional<UserEntity> userOpt = userRepository.findById(id);
+            if (userOpt.isEmpty() || Boolean.FALSE.equals(userOpt.get().getState())) {
+                log.warn("User not found");
+                return buildInternalErrorResponse(null, "There is no user with this id");
+            }
+            UserEntity user = userOpt.get();
             if (Objects.isNull(userDTO.getPassword())) {
                 userDTO.setPassword(user.getPassword());
             } else {
                 userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
             }
+            Roles role = (userDTO.getRoles() != null) ? Roles.valueOf(userDTO.getRoles()) : user.getRoles();
             userRepository.updateUser(
                     userDTO.getUsername(),
                     userDTO.getPassword(),
-                    Roles.valueOf(userDTO.getRoles()), id);
+                    role, id);
             return buildSuccessResponse(null, "User updated successfully");
         } catch (Exception e) {
             log.error("Error occurred while updating user {}", e.getMessage());

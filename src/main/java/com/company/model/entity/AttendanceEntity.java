@@ -1,5 +1,6 @@
 package com.company.model.entity;
 
+import com.company.model.enums.AttendAction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -15,26 +15,23 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "student")
+@Table(name = "attendance")
 @Builder
 @DynamicInsert
-public class StudentEntity {
+public class AttendanceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String firstName;
-    private String lastName;
-    private String middleName;
+    @Enumerated(EnumType.STRING)
+    private AttendAction action;
+
     @ManyToOne
-    private ClassEntity classEntity;
-    @Column(unique = true, nullable = false)
-    private String fingerPrintId;
+    @JoinColumn(name = "student_id", nullable = false)
+    private StudentEntity studentId;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 }
