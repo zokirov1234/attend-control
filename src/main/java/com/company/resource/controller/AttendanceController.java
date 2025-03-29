@@ -24,6 +24,12 @@ public class AttendanceController {
         return attendanceService.doAttend(action, attendDTO);
     }
 
+    @GetMapping
+    public ResponseEntity<?> getAllAttendance() {
+        log.info("Received request for all attendance");
+        return attendanceService.getAllAttendance();
+    }
+
     @GetMapping("/student/late")
     public ResponseEntity<?> lateAttend(){
         log.info("Received request for late student");

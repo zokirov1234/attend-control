@@ -92,6 +92,15 @@ public class AttendanceServiceImpl implements AttendanceService {
         return buildSuccessResponse(responseDTOS, "Success");
     }
 
+    @Override
+    public ResponseEntity<?> getAllAttendance() {
+        List<AttendanceClassResponseDTO> responseDTOS = new ArrayList<>();
+        for (AttendanceEntity attendance : attendanceRepository.findAllByAction(AttendAction.ENTRY)) {
+            responseDTOS.add(attendanceMapper.toAttendanceClass(attendance));
+        }
+        return buildSuccessResponse(responseDTOS, "Success");
+    }
+
     private AttendAction extractAction(String action) {
         try {
             return AttendAction.valueOf(action);

@@ -36,7 +36,7 @@ public class ClassController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/list")
-    public ResponseEntity<?> listCategory() {
+    public ResponseEntity<?> listClass() {
         log.info("Get list of class");
         return classService.getListOfClass();
     }

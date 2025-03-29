@@ -30,4 +30,7 @@ public interface AttendanceRepository extends JpaRepository<AttendanceEntity, In
             nativeQuery = true)
     List<AttendanceEntity> findLateStudent();
 
+    @Query("select a from AttendanceEntity a where a.action = ?1 order by a.createdAt")
+    List<AttendanceEntity> findAllByAction(AttendAction action);
+
 }

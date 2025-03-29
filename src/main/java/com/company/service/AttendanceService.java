@@ -12,4 +12,6 @@ public interface AttendanceService {
     ResponseEntity<?> getLateStudentsByClass(int id);
 
     ResponseEntity<?> getLateStudent();
+
+    ResponseEntity<?> getAllAttendance();
 }
