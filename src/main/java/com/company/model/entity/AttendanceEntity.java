@@ -31,6 +31,10 @@ public class AttendanceEntity {
     @JoinColumn(name = "student_id", nullable = false)
     private StudentEntity studentId;
 
+    @ManyToOne
+    @JoinColumn(name = "class_id", nullable = false)
+    private ClassEntity classId;
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;

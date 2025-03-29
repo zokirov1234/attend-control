@@ -21,4 +21,9 @@ public class BeanMapper {
     public StudentMapper studentMapper() {
         return Mappers.getMapper(StudentMapper.class);
     }
+
+    @Bean
+    public AttendanceMapper attendanceMapper() {
+        return Mappers.getMapper(AttendanceMapper.class);
+    }
 }
