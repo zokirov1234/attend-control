@@ -86,6 +86,7 @@ public class ClassServiceImpl implements ClassService {
         List<ClassDTO> listOfClasses = new ArrayList<>();
         for (ClassEntity classEntity : classRepository.findAll()) {
             ClassDTO classDTO = classMapper.toDTO(classEntity);
+            classDTO.setId(classEntity.getId());
             listOfClasses.add(classDTO);
         }
         return buildSuccessResponse(listOfClasses, "SUCCESS");
